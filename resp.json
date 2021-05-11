@@ -1,0 +1,1 @@
+[{'raw_dn': b'uid=riemann,dc=example,dc=com', 'dn': 'uid=riemann,dc=example,dc=com', 'raw_attributes': {'cn': [b'Bernhard Riemann']}, 'attributes': {'cn': ['Bernhard Riemann']}, 'type': 'searchResEntry'}]

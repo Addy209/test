@@ -1,0 +1,41 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  iframe {
+    border: none;
+  }
+</style>
+
+<iframe height="100%" width="100%" id="ifr"></iframe>
+
+<script>
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function demo() {
+    let myvar = window.open(
+      "http://indiacovid19.rf.gd/Covid19Tracker/index.html",
+      "testwindow"
+    );
+    let copyvar = { ...myvar.opener };
+    console.log("Taking a break...");
+    await sleep(2000);
+    console.log("Two seconds later, showing sleep in a loop...");
+
+    // Sleep in loop
+    for (let i = 0; i < 5; i++) {
+      if (i === 3) await sleep(2000);
+      console.log(i);
+    }
+
+    myvar.close();
+    console.log(copyvar);
+  }
+
+  demo();
+</script>
