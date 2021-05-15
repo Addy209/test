@@ -7,10 +7,8 @@ LDAP_URL = 'ldap://ldap.forumsys.com:389'
 def get_LDAP_user(username, password):
     try:
         server = Server(LDAP_URL, get_info=ALL)
-        connection = Connection(server,
-                                'uid={username},dc=example,dc=com'.format(
-                                    username=username),
-                                password, auto_bind=True)
+        connection = Connection(server,"uid="+username,password, auto_bind=True)
+        print(connection)
 
         connection.search('dc=example,dc=com', '({attr}={login})'.format(
             attr='uid', login=username), attributes=['cn'])
