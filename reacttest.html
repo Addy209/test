@@ -1,41 +1,26 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  iframe {
-    border: none;
-  }
-</style>
-
-<iframe height="100%" width="100%" id="ifr"></iframe>
-
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+  integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
 <script>
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  let rawData = atob("B7cKMrBgiFbPTj22+ozrjwXg9DjiF6z+9S/+Yqhfz2Q=");
 
-  async function demo() {
-    let myvar = window.open(
-      "http://indiacovid19.rf.gd/Covid19Tracker/index.html",
-      "testwindow"
-    );
-    let copyvar = { ...myvar.opener };
-    console.log("Taking a break...");
-    await sleep(2000);
-    console.log("Two seconds later, showing sleep in a loop...");
+  let iv = btoa(rawData.substring(0, 16));
+  let crypttext = btoa(rawData.substring(16));
+  let secret_key = "7gJkasQ89|asdTs^yb#4!2#&fJER2dpA";
 
-    // Sleep in loop
-    for (let i = 0; i < 5; i++) {
-      if (i === 3) await sleep(2000);
-      console.log(i);
-    }
+  // utf-8 conversion
+  // message = CryptoJS.enc.Utf8.parse(message);
+  secret_key = btoa(secret_key);
+  // iv = CryptoJS.enc.Utf8.parse(iv);
 
-    myvar.close();
-    console.log(copyvar);
-  }
-
-  demo();
+  // Decrypt
+  var bytes = CryptoJS.AES.decrypt(crypttext, secret_key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  console.log(bytes.toString());
 </script>
